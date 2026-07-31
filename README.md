@@ -124,10 +124,14 @@ This opens a desktop window where you can:
 - View the **waveform** and **probability distribution** chart
 
 
-Output:
+Outputs:
 <img width="1862" height="1006" alt="Screenshot 2026-08-01 011047" src="https://github.com/user-attachments/assets/949ea023-d96f-479b-9b46-bb4d80e3dc28" />
+
 <img width="1895" height="1012" alt="Screenshot 2026-08-01 011111" src="https://github.com/user-attachments/assets/371b3e1c-04e3-402d-ae56-530673cbe793" />
+
 <img width="1907" height="1017" alt="Screenshot 2026-08-01 011143" src="https://github.com/user-attachments/assets/1fb14fce-db1b-4f3b-89b7-72a5d6fd3341" />
+
+
 <img width="1911" height="997" alt="Screenshot 2026-08-01 011221" src="https://github.com/user-attachments/assets/be4926f4-9d5e-4602-87a7-d3d6641e1104" />
 
 
