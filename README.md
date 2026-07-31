@@ -112,7 +112,7 @@ You should see: `21/21 passed — All tests passed!`
 
 ## 🚀 Usage
 
-### Option 1: GUI Application (Recommended)
+### Testing: GUI Application 
 
 ```bash
 python app.py
@@ -123,57 +123,13 @@ This opens a desktop window where you can:
 - Click **"Upload File"** → Select a `.wav` file → See the prediction
 - View the **waveform** and **probability distribution** chart
 
-### Option 2: Command Line — Predict from a File
-
-```bash
-python predict.py test.wav
-```
 
 Output:
-```
-========================================
-  😠 Predicted Emotion: ANGRY
-  📊 Confidence: 77.8%
-========================================
+<img width="1862" height="1006" alt="Screenshot 2026-08-01 011047" src="https://github.com/user-attachments/assets/949ea023-d96f-479b-9b46-bb4d80e3dc28" />
+<img width="1895" height="1012" alt="Screenshot 2026-08-01 011111" src="https://github.com/user-attachments/assets/371b3e1c-04e3-402d-ae56-530673cbe793" />
+<img width="1907" height="1017" alt="Screenshot 2026-08-01 011143" src="https://github.com/user-attachments/assets/1fb14fce-db1b-4f3b-89b7-72a5d6fd3341" />
+<img width="1911" height="997" alt="Screenshot 2026-08-01 011221" src="https://github.com/user-attachments/assets/be4926f4-9d5e-4602-87a7-d3d6641e1104" />
 
-  All probabilities:
-    angry      ███████████████░░░░░  77.8%
-    happy      ██░░░░░░░░░░░░░░░░░░  14.7%
-    sad        █░░░░░░░░░░░░░░░░░░░   5.0%
-    neutral    ░░░░░░░░░░░░░░░░░░░░   2.5%
-```
-
-### Option 3: Command Line — Record and Predict
-
-```bash
-python predict.py --record
-```
-
-Records 4 seconds from your microphone and predicts the emotion.
-
----
-
-## 🔧 Retraining the Model (Optional)
-
-If you want to retrain on your own copy of RAVDESS and TESS:
-
-```bash
-# 1. Edit dataset paths in train_model.py (lines 33-34)
-RAVDESS_PATH = r"C:\path\to\your\RAVDESS"
-TESS_PATH = r"C:\path\to\your\TESS"
-
-# 2. Run training
-python train_model.py
-```
-
-The script will:
-- Load and parse both datasets
-- Extract features from all audio files
-- Train SVM, Random Forest, and Logistic Regression
-- Print accuracy comparison and classification reports
-- Save the best model to `models/`
-
----
 
 ## 📁 Project Structure
 
@@ -197,28 +153,9 @@ Voice-Emotion-Recognition/
 └── README.md               # This file
 ```
 
----
 
-## ✅ Testing
 
-Run the automated test suite:
-
-```bash
-python test_prediction.py
-```
-
-This runs **21 tests** covering:
-- Feature extraction output shape and validity
-- Model file loading and compatibility
-- End-to-end prediction pipeline
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **RAVDESS** — Livingstone & Russo (2018)
 - **TESS** — Dupuis & Pichora-Fuller (2010)
