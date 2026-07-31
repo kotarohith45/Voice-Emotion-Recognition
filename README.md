@@ -1,148 +1,218 @@
 # 🎙️ Voice Emotion Recognition
 
-A machine learning-based audio emotion classifier that detects emotions from speech in real-time. Built with Python, this system extracts audio features using Librosa and classifies emotions using trained ML models.
+> A Machine Learning-based audio emotion classifier that detects human emotions from speech using MFCC, Chroma, and Mel Spectrogram features.
 
-## ✨ Features
+---
 
-- **Real-time emotion detection** from microphone input
-- **Multiple ML models**: SVM, Random Forest, and Logistic Regression
-- **Audio feature extraction**: MFCC, Chroma, and Mel Spectrogram (180 features)
-- **Interactive GUI** with waveform visualization and confidence bars
-- **CLI prediction tool** for batch processing and scripting
-- **File upload support** for analyzing pre-recorded audio files
+## 📌 About The Project
 
-## 📊 Emotions Detected
+This project builds a **real-time speech emotion recognition system** that can classify spoken audio into four emotional categories. It uses classical machine learning models trained on two standard speech emotion datasets.
 
-| Emotion  | Emoji |
-|----------|-------|
-| Happy    | 😊    |
-| Sad      | 😢    |
-| Angry    | 😠    |
-| Neutral  | 😐    |
+### What It Does
 
-## 🗂️ Datasets
+- Records audio from your **microphone** (4 seconds)
+- Extracts **180 audio features** from the speech signal
+- Classifies the emotion using a **trained SVM model**
+- Displays the result with **confidence scores** and **visualizations**
 
-This project is trained on two publicly available datasets:
+### Emotions Detected
 
-- **[RAVDESS](https://zenodo.org/record/1188976)** — Ryerson Audio-Visual Database of Emotional Speech and Song
-- **[TESS](https://tspace.library.utoronto.ca/handle/1807/24487)** — Toronto Emotional Speech Set
+| Emotion | Emoji | Description |
+|---------|-------|-------------|
+| Happy   | 😊    | Joyful, excited speech |
+| Sad     | 😢    | Low energy, sorrowful tone |
+| Angry   | 😠    | Loud, aggressive speech |
+| Neutral | 😐    | Calm, flat tone |
+
+---
+
+## 🧠 How It Works
+
+```
+Audio Input → Feature Extraction → Scaling → ML Model → Emotion Output
+```
+
+### Feature Extraction Pipeline
+
+The system extracts **180 numerical features** from each audio sample:
+
+| Feature Type | Count | What It Captures |
+|-------------|-------|------------------|
+| **MFCC** (Mel-Frequency Cepstral Coefficients) | 40 | Vocal tone and timbre |
+| **Chroma** | 12 | Pitch class distribution |
+| **Mel Spectrogram** | 128 | Frequency energy distribution |
+
+All features are extracted using the **Librosa** library after trimming silence from the audio.
+
+### Machine Learning Models
+
+Three models are trained and compared:
+
+| Model | Algorithm | Key Parameters |
+|-------|-----------|----------------|
+| **SVM** (Support Vector Classifier) | RBF kernel | C=10, gamma=scale |
+| **Random Forest** | 200 decision trees | max_depth=None |
+| **Logistic Regression** | Multinomial + L2 | max_iter=1000 |
+
+The best-performing model is automatically saved and used for predictions.
+
+---
+
+## 📂 Datasets Used
+
+| Dataset | Full Name | Samples | Source |
+|---------|-----------|---------|--------|
+| **RAVDESS** | Ryerson Audio-Visual Database of Emotional Speech and Song | 1,440 audio files | [Download](https://zenodo.org/record/1188976) |
+| **TESS** | Toronto Emotional Speech Set | 2,800 audio files | [Download](https://tspace.library.utoronto.ca/handle/1807/24487) |
+
+Both datasets contain `.wav` files with labeled emotions, spoken by multiple actors.
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Python 3.10+**
-- **Librosa** — Audio feature extraction (MFCC, Chroma, Mel Spectrogram)
-- **Scikit-learn** — Machine learning models (SVM, Random Forest, Logistic Regression)
-- **SoundDevice** — Real-time audio recording
-- **Matplotlib** — Waveform and probability visualization
-- **Tkinter** — Desktop GUI framework
+| Technology | Purpose |
+|-----------|---------|
+| **Python 3.10+** | Programming language |
+| **Librosa** | Audio feature extraction |
+| **Scikit-learn** | Machine learning (SVM, RF, LR) |
+| **SoundDevice** | Microphone recording |
+| **SoundFile** | Audio file I/O |
+| **Matplotlib** | Waveform and chart visualization |
+| **Tkinter** | GUI framework |
+| **Joblib** | Model serialization |
+| **NumPy** | Numerical operations |
+
+---
 
 ## 📦 Installation
 
-1. **Clone the repository:**
+### Prerequisites
 
-   ```bash
-   git clone https://github.com/<your-username>/Voice_Emotion_Recognition.git
-   cd Voice_Emotion_Recognition
-   ```
+- Python 3.10 or higher
+- A working microphone (for real-time recording)
 
-2. **Install dependencies:**
+### Steps
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+# 1. Clone the repository
+git clone https://github.com/kotarohith45/Voice-Emotion-Recognition.git
+cd Voice-Emotion-Recognition
 
-3. **Verify installation:**
+# 2. Install dependencies
+pip install -r requirements.txt
 
-   ```bash
-   python test_prediction.py
-   ```
+# 3. Verify everything works
+python test_prediction.py
+```
+
+You should see: `21/21 passed — All tests passed!`
+
+---
 
 ## 🚀 Usage
 
-### GUI Application
-
-Launch the interactive desktop application:
+### Option 1: GUI Application (Recommended)
 
 ```bash
 python app.py
 ```
 
-- Click **"Start Recording"** to record 4 seconds of audio
-- Click **"Upload File"** to analyze a pre-recorded `.wav` file
-- View the predicted emotion, confidence score, waveform, and probability distribution
+This opens a desktop window where you can:
+- Click **"Start Recording"** → Speak for 4 seconds → See the predicted emotion
+- Click **"Upload File"** → Select a `.wav` file → See the prediction
+- View the **waveform** and **probability distribution** chart
 
-### Command-Line Prediction
-
-Predict emotion from an audio file:
+### Option 2: Command Line — Predict from a File
 
 ```bash
-python predict.py path/to/audio.wav
+python predict.py test.wav
 ```
 
-Record and predict from microphone:
+Output:
+```
+========================================
+  😠 Predicted Emotion: ANGRY
+  📊 Confidence: 77.8%
+========================================
+
+  All probabilities:
+    angry      ███████████████░░░░░  77.8%
+    happy      ██░░░░░░░░░░░░░░░░░░  14.7%
+    sad        █░░░░░░░░░░░░░░░░░░░   5.0%
+    neutral    ░░░░░░░░░░░░░░░░░░░░   2.5%
+```
+
+### Option 3: Command Line — Record and Predict
 
 ```bash
 python predict.py --record
 ```
 
-### Train Models (Optional)
+Records 4 seconds from your microphone and predicts the emotion.
 
-To retrain models on your own RAVDESS/TESS data:
+---
 
-1. Update the dataset paths in `train_model.py`:
+## 🔧 Retraining the Model (Optional)
 
-   ```python
-   RAVDESS_PATH = r"C:\path\to\RAVDESS"
-   TESS_PATH = r"C:\path\to\TESS"
-   ```
+If you want to retrain on your own copy of RAVDESS and TESS:
 
-2. Run the training pipeline:
+```bash
+# 1. Edit dataset paths in train_model.py (lines 33-34)
+RAVDESS_PATH = r"C:\path\to\your\RAVDESS"
+TESS_PATH = r"C:\path\to\your\TESS"
 
-   ```bash
-   python train_model.py
-   ```
+# 2. Run training
+python train_model.py
+```
 
-   This trains SVM, Random Forest, and Logistic Regression models, compares their accuracy, and saves the best one.
+The script will:
+- Load and parse both datasets
+- Extract features from all audio files
+- Train SVM, Random Forest, and Logistic Regression
+- Print accuracy comparison and classification reports
+- Save the best model to `models/`
+
+---
 
 ## 📁 Project Structure
 
 ```
-Voice_Emotion_Recognition/
-├── app.py                  # GUI application (tkinter)
+Voice-Emotion-Recognition/
+│
+├── app.py                  # GUI application (Tkinter + Matplotlib)
+├── predict.py              # Command-line prediction tool
 ├── train_model.py          # Training pipeline (SVM, RF, LR)
-├── predict.py              # CLI prediction tool
 ├── feature_extraction.py   # Shared feature extraction module
-├── test_prediction.py      # Automated test suite
-├── requirements.txt        # Python dependencies
+├── test_prediction.py      # Automated test suite (21 tests)
+│
 ├── models/
-│   ├── emotion_model.pkl   # Trained classifier
-│   ├── scaler.pkl          # Feature scaler
-│   └── label_encoder.pkl   # Label encoder
-├── test.wav                # Sample test audio
-└── README.md
+│   ├── emotion_model.pkl   # Trained SVM classifier
+│   ├── scaler.pkl          # StandardScaler for feature normalization
+│   └── label_encoder.pkl   # Label encoder (emotion ↔ number mapping)
+│
+├── test.wav                # Sample audio file for testing
+├── requirements.txt        # Python dependencies
+├── .gitignore              # Git ignore rules
+└── README.md               # This file
 ```
 
-## 🔬 Feature Extraction
+---
 
-The system extracts **180 audio features** from each audio sample:
+## ✅ Testing
 
-| Feature             | Count | Description                                |
-|---------------------|-------|--------------------------------------------|
-| MFCC                | 40    | Mel-Frequency Cepstral Coefficients        |
-| Chroma              | 12    | Pitch class distribution                   |
-| Mel Spectrogram     | 128   | Frequency bands on the mel scale           |
+Run the automated test suite:
 
-Features are computed using **Librosa** with silence trimming applied before extraction.
+```bash
+python test_prediction.py
+```
 
-## 🤖 Model Comparison
+This runs **21 tests** covering:
+- Feature extraction output shape and validity
+- Model file loading and compatibility
+- End-to-end prediction pipeline
 
-| Model               | Description                              |
-|----------------------|------------------------------------------|
-| SVM (SVC)            | Support Vector Classifier with RBF kernel|
-| Random Forest        | Ensemble of 200 decision trees           |
-| Logistic Regression  | Multinomial with L2 regularization       |
-
-The training script automatically selects and saves the best-performing model.
+---
 
 ## 📄 License
 
@@ -150,6 +220,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- RAVDESS dataset by Livingstone & Russo (2018)
-- TESS dataset by Dupuis & Pichora-Fuller (2010)
-- Librosa library for audio analysis
+- **RAVDESS** — Livingstone & Russo (2018)
+- **TESS** — Dupuis & Pichora-Fuller (2010)
+- **Librosa** — McFee et al. (audio analysis library)

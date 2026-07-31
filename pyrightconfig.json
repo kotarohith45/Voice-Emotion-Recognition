@@ -1,0 +1,7 @@
+{
+    "reportMissingModuleSource": false,
+    "reportMissingImports": false,
+    "reportMissingTypeStubs": false,
+    "reportGeneralTypeIssues": false,
+    "typeCheckingMode": "off"
+}
